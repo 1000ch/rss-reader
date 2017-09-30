@@ -1,0 +1,29 @@
+{
+  "name": "rss-reader",
+  "productName": "RSS Reader",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "1000ch/rss-reader",
+  "author": {
+    "name": "Shogo Sensui",
+    "email": "shogosensui@gmail.com",
+    "url": "github.com/1000ch"
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.shogosensui.rss-reader",
+    "mac": {
+      "category": "public.app-category.social-networking"
+    }
+  },
+  "devDependencies": {
+    "electron": "^1.7.8",
+    "electron-builder": "^19.33.0"
+  }
+}
