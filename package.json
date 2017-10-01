@@ -22,6 +22,9 @@
       "category": "public.app-category.social-networking"
     }
   },
+  "dependencies": {
+    "electron-store": "^1.3.0"
+  },
   "devDependencies": {
     "electron": "^1.7.8",
     "electron-builder": "^19.33.0"
