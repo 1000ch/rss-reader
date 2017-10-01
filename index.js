@@ -19,11 +19,51 @@ if (isAlreadyRunning) {
   electron.app.quit();
 }
 
-app.on('activate', () => {
+function createMainWindow() {
+  const lastWindowState = config.get('lastWindowState');
+
+  const window = new electron.BrowserWindow({
+    title: electron.app.getName(),
+    x: lastWindowState.x,
+    y: lastWindowState.y,
+    width: lastWindowState.width,
+    height: lastWindowState.height
+  });
+
+  window.loadURL('./index.html');
+
+  window.on('close', e => {
+    if (!isQuitting) {
+      e.preventDefault();
+
+      if (process.platform === 'darwin') {
+        electron.app.hide();
+      } else {
+        window.hide();
+      }
+    }
+  });
+
+  return window;
+}
+
+electron.app.on('ready', () => {
+  mainWindow = createMainWindow();
+
+  mainWindow.webContents.on('dom-ready', () => {
+    mainWindow.show();
+  });
+
+  mainWindow.webContents.on('new-window', (e, url) => {
+    electron.shell.openExternal(url);
+  });
+});
+
+electron.app.on('activate', () => {
   mainWindow.show();
 });
 
-app.on('before-quit', () => {
+electron.app.on('before-quit', () => {
   isQuitting = true;
 
   if (!mainWindow.isFullScreen()) {
