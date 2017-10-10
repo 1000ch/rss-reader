@@ -1,5 +1,6 @@
 'use strict';
 const electron = require('electron');
+const devtron = require('devtron');
 const config = require('./config');
 
 let mainWindow;
@@ -30,7 +31,7 @@ function createMainWindow() {
     height: lastWindowState.height
   });
 
-  window.loadURL('./index.html');
+  window.loadURL(`file://${__dirname}/index.html`);
 
   window.on('close', e => {
     if (!isQuitting) {
@@ -43,6 +44,8 @@ function createMainWindow() {
       }
     }
   });
+
+  devtron.install();
 
   return window;
 }
